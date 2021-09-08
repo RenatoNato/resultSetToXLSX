@@ -29,11 +29,11 @@ import projur.jand.db.exception.FaltaParametroException;
 public class ProjetoProjur {
 
 	/**
-	 * PROP”SITO - GERAR ARQUIVOS EXCEL COM VOLUMETRIA GRANDES DADOS VINDO DO BANCO DE DADOS AFIM DE 
-	 * DISPONIBILIZAR RELAT”RIOS DO SISTEMA JURÕDICO PROJUR
-	 * DATA DE CRIA«√O 27/07/2021 DATA 
-	 * DATA DA ⁄LTIMA MODIFICA«√O 12/08/2021 17:40	 * 
-	 * @author rcaraujo - Renato CÈzar Silva de Ara˙jo
+	 * PROP√ìSITO - GERAR ARQUIVOS EXCEL COM VOLUMETRIA GRANDES DADOS VINDO DO BANCO DE DADOS AFIM DE 
+	 * DISPONIBILIZAR RELAT√ìRIOS DO SISTEMA JUR√çDICO PROJUR
+	 * DATA DE CRIA√á√ÉO 27/07/2021 DATA 
+	 * DATA DA √öLTIMA MODIFICA√á√ÉO 12/08/2021 17:40	 * 
+	 * @author rcaraujo - Renato C√©zar Silva de Ara√∫jo
 	 * @version 1.4
 	 * @param args
 	 * @throws SQLException
@@ -45,16 +45,16 @@ public class ProjetoProjur {
 
 		DateFormat df = new SimpleDateFormat("HHmmss");
 
-//=============================== INÕCIO DO PROCESSAMENTO =============================================================
+//=============================== IN√çCIO DO PROCESSAMENTO =============================================================
 
-		System.out.println("\nVERS√O DO PROGRAMA [ 1.4 ]");
+		System.out.println("\nVERS√ÉO DO PROGRAMA [ 1.4 ]");
 		String inicioProcessamento = pegaHora();
 		Date iniProc = df.parse(inicioProcessamento);
 		System.out.println("\n--------------------------->> INICIO DO PROCESSAMENTO [ " + pegaDataHora() + " ]\n");
 
-//=============================== FIM DO INÕCIO DO PROCESSAMENTO ======================================================
+//=============================== FIM DO IN√çCIO DO PROCESSAMENTO ======================================================
 
-//================================ INÕCIO PAR¬METROS DO JAR ===========================================================
+//================================ IN√çCIO PAR√ÇMETROS DO JAR ===========================================================
 
 		String dataInicial = null;
 		String dataFinal = null;
@@ -84,65 +84,65 @@ public class ProjetoProjur {
 		} else {
 
 			throw new FaltaParametroException(
-					"FALTA PAR¬METRO FAVOR VERIFICAR A QUANTIDADE E ORDEM DOS PAR¬METROS DIGITADOS");
+					"FALTA PAR√ÇMETRO FAVOR VERIFICAR A QUANTIDADE E ORDEM DOS PAR√ÇMETROS DIGITADOS");
 
 		}
 
 		String dirArquivo = localGravacaoDoArquivo + nomeArquivoGerado.concat("_" + pegaDataHoraArquivo() + ".xlsx");
 
-//================================ FIM DOS PAR¬METROS DO JAR ==========================================================
+//================================ FIM DOS PAR√ÇMETROS DO JAR ==========================================================
 
-//================================= CONEX√O COM O BANCO DE DADOS ======================================================
-		// INSERE O LOCAL DO ARQUIVO PROPERTIES PARA ORIENTA«√O E CONEX√O DO BANCO
+//================================= CONEX√ÉO COM O BANCO DE DADOS ======================================================
+		// INSERE O LOCAL DO ARQUIVO PROPERTIES PARA ORIENTA√á√ÉO E CONEX√ÉO DO BANCO
 		DB.setFileProperties(paramProperties);
 
-		// Pegando uma conex„o v·lida com o banco de dados
+		// Pegando uma conex√£o v√°lida com o banco de dados
 		Connection con = DB.getInstance().getConnection();
 		System.out.println(DB.getClients());
 
-		// EXECUTA A PROCEDURE COM PAR¬METROS
+		// EXECUTA A PROCEDURE COM PAR√ÇMETROS
 		PreparedStatement ps = con.prepareStatement("? @MesAnoInicio = ? , @MesAnoFim = ?");
 		ps.setString(1, procedure);
 		ps.setString(2, dataInicial);
 		ps.setString(3, dataFinal);
 
 		/*
-		 * ATRIBUI A EXECU«√O A UM RESULSET PARA OBTERMOS O RETORNO DA
-		 * CONSULTA/EXECU«√O, ASSIM PODEREMOS ITERAR ENTRE AS LINHAS DA CONSULTA POIS
+		 * ATRIBUI A EXECU√á√ÉO A UM RESULSET PARA OBTERMOS O RETORNO DA
+		 * CONSULTA/EXECU√á√ÉO, ASSIM PODEREMOS ITERAR ENTRE AS LINHAS DA CONSULTA POIS
 		 * TEREMOS UM REOTRNO
 		 */
 		ResultSet rs = ps.executeQuery();
 
-//================================= FIM DAS CONFIGURA«’ES DE CONEX√O COM O BANCO DE DADOS =============================
+//================================= FIM DAS CONFIGURA√á√ïES DE CONEX√ÉO COM O BANCO DE DADOS =============================
 
-//================================= CRIA«√O DE LISTAS PARA ITERA«’ES ==================================================
+//================================= CRIA√á√ÉO DE LISTAS PARA ITERA√á√ïES ==================================================
 
 		// LISTA CRIADA PARA OS DADOS E METADADOS DO RESULTSET
 		ArrayList<String> interna = new ArrayList<String>();
 
-//================================= FIM DAS CRIA«’ES DE LISTAS PARA ITERA«’ES ==================================================
+//================================= FIM DAS CRIA√á√ïES DE LISTAS PARA ITERA√á√ïES ==================================================
 
-//================================= CRIA«√O E PROCESSAMENTO DO ARQUIVO EXCEL ==========================================
+//================================= CRIA√á√ÉO E PROCESSAMENTO DO ARQUIVO EXCEL ==========================================
 
-		// CRIA UM METADATA PARA OBSERMOS O LABEL(NOME DO CABE«ALHO) DE FORMA AUTOM¡TICA
+		// CRIA UM METADATA PARA OBSERMOS O LABEL(NOME DO CABE√áALHO) DE FORMA AUTOM√ÅTICA
 		// NAS CONSULTAS
 		ResultSetMetaData rsmd;
 
-		// VARI¡VEL USADA PARA CONTAGEM DAS LINHAS
+		// VARI√ÅVEL USADA PARA CONTAGEM DAS LINHAS
 		// int numeroColuna;
 
-		// CRIA«√O/INSTANCIA«√O DA PASTA DE TRABALHO DO EXCEL,
-		// SXSSFWorkbook - CLASSE QUE SERVER PARA GERAR ARQUIVOS GRAND’ES
-		SXSSFWorkbook pastaDoExcel = new SXSSFWorkbook(); // N√O USAR A CLASSE WORKBOOK APENAS SXSSFWorkbook
+		// CRIA√á√ÉO/INSTANCIA√á√ÉO DA PASTA DE TRABALHO DO EXCEL,
+		// SXSSFWorkbook - CLASSE QUE SERVER PARA GERAR ARQUIVOS GRAND√ïES
+		SXSSFWorkbook pastaDoExcel = new SXSSFWorkbook(); // N√ÉO USAR A CLASSE WORKBOOK APENAS SXSSFWorkbook
 
 		// CRIA A PLANILHA DENTRO DA PASTA DE TRABALHO DO EXCEL NO CASO O ARQUIVO.XLSX E
-		// DA O NOME QUE EST¡ ENTRE ASPAS ""
+		// DA O NOME QUE EST√Å ENTRE ASPAS ""
 		Sheet planilha = pastaDoExcel.createSheet(nomeDaPlanilha);
 
-		// CRIA UMA LINHA, A LINHA (0) ZERO DO CABE«ALHO
+		// CRIA UMA LINHA, A LINHA (0) ZERO DO CABE√áALHO
 		Row cabecalho = planilha.createRow(0);
 
-		// ATRIBUÕMOS O QUE PEGAMOS DE METADAS DO RESULTSET(RETORNO DOS DADOS)
+		// ATRIBU√çMOS O QUE PEGAMOS DE METADATAS DO RESULTSET(RETORNO DOS DADOS)
 		rsmd = rs.getMetaData();
 		// numeroColuna = rsmd.getColumnCount();
 
@@ -152,7 +152,7 @@ public class ProjetoProjur {
 			interna.add(rsmd.getColumnLabel(i));
 		}
 
-		// INSERE OS CABE«ALHOS VINDOS DOS METADATAS NAS C…LULAS DAS PLANILHA DENTRO DO
+		// INSERE OS CABE√áALHOS VINDOS DOS METADATAS NAS C√âLULAS DAS PLANILHA DENTRO DO
 		// ARQUIVO
 		for (int i = 0; i < interna.size(); i++) {
 			cabecalho.createCell(i).setCellValue(interna.get(i));
@@ -200,11 +200,11 @@ public class ProjetoProjur {
 							+ path.toAbsolutePath() + " ]");
 
 				} else {
-					System.err.println("ARQUIVO N√O GERADO");
+					System.err.println("ARQUIVO N√ÉO GERADO");
 				}
 
 			} else {
-				System.err.println("DIRETORIO N√O EXISTE");
+				System.err.println("DIRETORIO N√ÉO EXISTE");
 			}
 
 		} catch (IOException e) {
@@ -212,18 +212,18 @@ public class ProjetoProjur {
 			e.printStackTrace();
 		}
 
-//=============================== T…RMINO DO PROCESSAMENTO =============================================================
+//=============================== T√âRMINO DO PROCESSAMENTO =============================================================
 
 		String finalProcessamento = pegaHora();
 		Date fimProc = df.parse(finalProcessamento);
 
-		System.out.println("\n--------------------------->> T…RMINO DO PROCESSAMENTO [ " + pegaDataHora() + " ]");
+		System.out.println("\n--------------------------->> T√âRMINO DO PROCESSAMENTO [ " + pegaDataHora() + " ]");
 
 		long duracaoProcessamento = fimProc.getTime() - iniProc.getTime();
-		System.out.println("--------------------------->> DURA«√O TOTAL DO PROCESSO [ "
+		System.out.println("--------------------------->> DURA√á√ÉO TOTAL DO PROCESSO [ "
 				+ DurationFormatUtils.formatDuration(duracaoProcessamento, "HH:mm:ss") + " ]");
 
-//=============================== FIM DO T…RMINO DO PROCESSAMENTO ======================================================	
+//=============================== FIM DO T√âRMINO DO PROCESSAMENTO ======================================================	
 
 	}
 
